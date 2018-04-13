@@ -38,25 +38,25 @@ function addNote(note, callback) {
 // appends the notes to the html document
 function showNote(note) {
 
-    
+
     console.log("Show notes");
     if (note.date !== null) {
         $('#notes').append(
             '<div class="note" id="note-' + note.id + '">' +
-            '<p>' + note.description + '</p>' +
-            '<p>' + note.date + '</p>' +
+            '<p id="description">' + note.description + '</p>' +
+            '<p id="date">' + note.date + '</p>' +
             ' </div>')
     } else {
         $('#notes').append(
             '<div class="note" id="note-' + note.id + '">' +
-            '<p>' + note.description + '</p>' +
-            '<p> No Date Available </p>' +
+            '<p id="description">' + note.description + '</p>' +
+            '<p > No Date Available </p>' +
             ' </div>')
     }
 }
 
 //manages the edition of the notes
-function editNote(note){
+function editNote(note) {
     console.log("Edit Note");
     $.ajax({
         method: "PUT",
@@ -67,7 +67,7 @@ function editNote(note){
             "Content-Type": "application/json"
         }
     })
-    
+
 }
 
 //manages the removal of the notes
@@ -90,8 +90,8 @@ $(document).ready(function () {
 
     loadNotes(function (notes) {
         console.log("Callback");
-        if (notes.length > 0){
-             document.getElementById("emptyNotes").remove();
+        if (notes.length > 0) {
+            document.getElementById("emptyNotes").remove();
         }
         for (var i = 0; i < notes.length; i++) {
             showNote(notes[i]);
@@ -117,46 +117,61 @@ $(document).ready(function () {
 
         console.log("clicked note");
         dialogEdit.style.display = "block";
+        var inputElem = $("#descriptionInputEdit");
+        var inputDate = $("#date");
+        
+        inputElem.val($(this).children('#description').text())
+        
+        console.log($(this).children('#date').text());
+        
+        inputDate.val($(this).children('#date').text());
         var id = $(this).attr('id').split('-')[1];
+
         edit.onclick = function () {
-            
-            var descriptionField = $("#descriptionInputEdit").val();
+
+            var descriptionField = inputElem.val();
             console.log(descriptionField);
-            var date = $("#date").val();
+            var date = inputDate.val();
 
             var descriptionInfo = descriptionField;
-            
+
             console.log(id);
             console.log(descriptionInfo);
             console.log(date);
+
+            inputElem.val("");
+
             var note = {
-                id : id,
+                id: id,
                 description: descriptionInfo,
                 date: date,
             }
-            
+
             editNote(note);
-            
-            $('#note-' + id).html('<div class="note" id="note-' + id + '">' +
-                '<p>' + descriptionInfo + '</p>' + '<p>' + date + '</p>' + ' </div>');
-            dialogEdit.style.display = "none";
+            if (date != "") {
+                $('#note-' + id).html('<p id="description">' + descriptionInfo + '</p>' + '<p id="date">' + date + '</p>');
+                dialogEdit.style.display = "none";
+            } else {
+                $('#note-' + id).html('<p id="description">' + descriptionInfo + '</p>' + '<p  > No date Available</p>');
+                dialogEdit.style.display = "none";
+            }
         }
         delet.onclick = function (note) {
             deleteNote(id);
             $('#note-' + id).remove();
-            
+
             console.log($('#notes > div').length);
-            if($('#notes > div').length<1){
+            if ($('#notes > div').length < 1) {
                 $('#notes').append('<h3 id="emptyNotes">No Current Notes</h3>')
             }
-            
-            dialogEdit.style.display="none";
+
+            dialogEdit.style.display = "none";
         }
-        
-       $('#closeEdit').click(function(){
+
+        $('#closeEdit').click(function () {
             dialogEdit.style.display = "none";
         })
-        
+
 
     })
 
@@ -166,21 +181,21 @@ $(document).ready(function () {
 
 
     closeBtn.onclick = function () {
-        
-            dialogAdd.style.display = "none";
-    
+
+        dialogAdd.style.display = "none";
+
     }
 
     save.onclick = function () {
-        
+
         var descriptionField = $("#descriptionInput");
         var date = $("#dateInput").val();
 
-        
-        if ($('#emptyNotes').length){
-             document.getElementById("emptyNotes").remove();
+
+        if ($('#emptyNotes').length) {
+            document.getElementById("emptyNotes").remove();
         }
-        
+
         var descriptionInfo = descriptionField.val();
         descriptionField.val('');
 

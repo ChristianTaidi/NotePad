@@ -16,41 +16,43 @@
 
 <body>
     <div id="addDialog"  class="modal-dialog form-group">
-        <div class="modal-content">
-        <h3>Note Creation</h3>
+        <div class="modal-content ">
+        <h3>Note Creation<span class="glyphicon glyphicon-pencil"></span></h3>
         <div class="input-group">
             <span class="input-group-addon">Note Description</span>
             <textarea id="descriptionInput"></textarea>
             
         </div>
             <div>
-            <span>Note Date</span>
+            <span class="date">Note Date</span>
             <input id="dateInput" size="16" type="date">
         </div>
-            <button id="save" type="submit" class="btn-info">Save</button>
-            <button id="close" type="submit" class=" btn-info ">Cancel</button>
+            <button id="save" type="submit" class="btn btn-primary btn-md btn-info "><span class="glyphicon glyphicon-ok"></span>Save</button>
+            <button id="close" type="submit" class="btn btn-primary btn-md btn-info "><span class="glyphicon glyphicon-remove"></span>Cancel</button>
             </div>
 
     </div>
 
     <div id="editDialog" class="modal-dialog form-group">
         <div class="modal-content">
-        <h3>Note Edition</h3>
+        <h3>Note Edition<span class="glyphicon glyphicon-pencil"></span></h3>
         <div class="input-group">
             <span class="input-group-addon">Note Description</span>
             <textarea id="descriptionInputEdit"></textarea>
  
         </div>
         <div>
-            <span>Note Date</span>
+            <span class="date">Note Date</span>
             <input id="date" size="16" type="date">
         </div>
 
 
         <div class="dialogButtons">
-            <button id="edit" type="submit" class="btn-info">Save</button>
-            <button id="closeEdit" type="submit" class="btn-info">Cancel</button>
-            <button id="delete" type="submit" class="btn-info">Delete</button>
+            <button id="edit" type="submit" class="btn btn-primary btn-md btn-info ">
+                <span class="glyphicon glyphicon-edit"></span>Save</button>
+            <button id="closeEdit" type="submit" class="btn btn-primary btn-md btn-info"><span class="glyphicon glyphicon-remove"></span>Cancel</button>
+            <button id="delete" type="submit" class="btn btn-primary btn-md btn-info">                <span class="glyphicon glyphicon-trash"></span>
+Delete</button>
         </div>
             </div>
 
@@ -58,7 +60,7 @@
 
     <div class="panel panel-info">
         <div class="panel-heading">
-            <span class="panel-title">Note Pad</span>
+            <span class="panel-title">Note Pad<span class="glyphicon glyphicon-list"></span></span>
             <button id="addNote" type="button" class="btn-primary">New note</button>
 
         </div>
